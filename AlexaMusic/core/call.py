@@ -49,7 +49,7 @@ from AlexaMusic.utils.exceptions import AssistantErr
 from AlexaMusic.utils.inline.play import stream_markup, telegram_markup
 from AlexaMusic.utils.stream.autoclear import auto_clean
 from AlexaMusic.utils.thumbnails import gen_thumb
-from AlexaMusic.utils.theme import check_theme
+
 
 
 autoend = {}
