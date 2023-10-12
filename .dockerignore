@@ -1,6 +1,6 @@
 .env
 .cache
-randilogs.txt
+log.txt
 .DS_Store
 *.session
 raw_files/
