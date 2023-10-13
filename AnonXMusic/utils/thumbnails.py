@@ -125,7 +125,7 @@ async def get_thumb(videoid, user_id):
         try:
             draw.text(
                 (450, 25),
-                f"STARTED PLAYING",
+                f"sᴀɴᴅʏ",
                 fill="white",
                 stroke_width=3,
                 stroke_fill="grey",
@@ -171,7 +171,7 @@ async def get_thumb(videoid, user_id):
         return YOUTUBE_IMG_URL
 
 
-async def gen_qthumb(videoid, user_id):
+async def get_qthumb(videoid, user_id):
     if os.path.isfile(f"cache/que{videoid}_{user_id}.png"):
         return f"cache/que{videoid}_{user_id}.png"
     url = f"https://www.youtube.com/watch?v={videoid}"
@@ -265,7 +265,7 @@ async def gen_qthumb(videoid, user_id):
         try:
             draw.text(
                 (455, 25),
-                "ADDED TO QUEUE",
+                "sᴀɴᴅʏ",
                 fill="white",
                 stroke_width=5,
                 stroke_fill="black",
