@@ -4,13 +4,13 @@ import textwrap
 
 import aiofiles
 import aiohttp
-
+import numpy as np
 
 from PIL import Image, ImageChops, ImageDraw, ImageEnhance, ImageFilter, ImageFont
 from youtubesearchpython.__future__ import VideosSearch
-from AnonXMusic import app
-from config import YOUTUBE_IMG_URL
 
+from config import YOUTUBE_IMG_URL
+from Vampire import app
 
 
 def changeImageSize(maxWidth, maxHeight, image):
@@ -31,7 +31,7 @@ def add_corners(im):
     im.putalpha(mask)
 
 
-async def get_thumb(videoid, user_id):
+async def gen_thumb(videoid, user_id):
     if os.path.isfile(f"cache/{videoid}_{user_id}.png"):
         return f"cache/{videoid}_{user_id}.png"
     url = f"https://www.youtube.com/watch?v={videoid}"
@@ -171,7 +171,7 @@ async def get_thumb(videoid, user_id):
         return YOUTUBE_IMG_URL
 
 
-async def get_qthumb(videoid, user_id):
+async def gen_qthumb(videoid, user_id):
     if os.path.isfile(f"cache/que{videoid}_{user_id}.png"):
         return f"cache/que{videoid}_{user_id}.png"
     url = f"https://www.youtube.com/watch?v={videoid}"
@@ -222,7 +222,7 @@ async def get_qthumb(videoid, user_id):
         x = f.resize((107, 107))
 
         youtube = Image.open(f"cache/thumb{videoid}.png")
-        bg = Image.open(f"AnonXMusic/assets/anonx.png")
+        bg = Image.open(f"AnonXMusic/assests/anonx.png")
         image1 = changeImageSize(1280, 720, youtube)
         image2 = image1.convert("RGBA")
         background = image2.filter(filter=ImageFilter.BoxBlur(30))
@@ -240,7 +240,7 @@ async def get_qthumb(videoid, user_id):
         x2 = Xcenter + 250
         y2 = Ycenter + 250
         logo = youtube.crop((x1, y1, x2, y2))
-        logo.thumbnail((520, 520), Image.LANCZOS)
+        logo.thumbnail((520, 520), Image.ANTIALIAS)
         logo.save(f"cache/chop{videoid}.png")
         if not os.path.isfile(f"cache/cropped{videoid}.png"):
             im = Image.open(f"cache/chop{videoid}.png").convert("RGBA")
@@ -249,7 +249,7 @@ async def get_qthumb(videoid, user_id):
 
         crop_img = Image.open(f"cache/cropped{videoid}.png")
         logo = crop_img.convert("RGBA")
-        logo.thumbnail((365, 365), Image.LANCZOS)
+        logo.thumbnail((365, 365), Image.ANTIALIAS)
         width = int((1280 - 365) / 2)
         background = Image.open(f"cache/temp{videoid}.png")
         background.paste(logo, (width + 2, 138), mask=logo)
@@ -265,7 +265,7 @@ async def get_qthumb(videoid, user_id):
         try:
             draw.text(
                 (455, 25),
-                "sᴀɴᴅʏ",
+                "ADDED TO QUEUE",
                 fill="white",
                 stroke_width=5,
                 stroke_fill="black",
